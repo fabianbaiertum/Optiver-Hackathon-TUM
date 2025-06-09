@@ -7,7 +7,7 @@ We only had around 4 hours of time (my team only 3 hours because we took the sub
 My main task was to design and write the logic of the trading strategies (also optimize the parameters). 
 I used a similar approach to my IMC MM algorithm, but simplified and optimized it for the competition and the specific rules (in the Optibook, we also trade against other participants, thus I adjusted some of the logic, that we get better execution). I was researching and implementing it in Python two weeks before the competition. The main problem was how to scale each of the parameters, that I got complete control over the behavior of the algorithm, with just a few possible values for each parameter. For example, I scaled order imbalance, such that it can only influence the bid/ ask prices up to parameter*tick_size. I used linear scaling for order imbalance and tanh scaling for inventory risk.
 
-My teammate changed the API, such that it is compatible with Optibook, and he also used multithreading 
+My teammate changed the API, such that it is compatible with Optibook, and he also used multithreading
 so that we can check and recalculate the bid/ask prices and the sentiment at each point in time. 
 He also made sure that we don't breach any limits, such as updating the bid/ask prices too often or sending out orders too often.
 
