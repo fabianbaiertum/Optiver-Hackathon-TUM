@@ -25,6 +25,22 @@ def MarketMaking(microprice:float,current_position:int,position_limit:int,histor
     else:
         ask_price=ask_price
         bid_price=bid_price
+
+    max_deviation = product_data["max_tick_deviation"] * tick_size
+    # Ask price: bounded between [microprice - 1 tick, microprice + max_deviation]
+    ask_price = max(ask_price, microprice - tick_size)
+    ask_price = min(ask_price, microprice + max_deviation)
+
+    # Bid price: bounded between [microprice - max_deviation, microprice + 1 tick]
+    bid_price = max(bid_price, microprice - max_deviation)
+    bid_price = min(bid_price, microprice + tick_size)
+
+    min_spread = tick_size  # or use product_data["base_spread"]
+
+    if bid_price >= ask_price - min_spread:
+        bid_price = microprice - min_spread / 2
+        ask_price = microprice + min_spread / 2
+
     round_ask=round(ask_price/tick_size)*tick_size
     round_bid=round(bid_price/tick_size)*tick_size
 
